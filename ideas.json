@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Idea Two",
+    "area": "IoT",
+    "state": "New",
+    "description": "Basic description of idea two.",
+    "detailedDesc": "Detailed explanation of idea two.",
+    "comments": [],
+    "attachment": "",
+    "attachmentName": ""
+  },
+  {
+    "name": "teja1",
+    "area": "QA",
+    "state": "New"
+  },
+  {
+    "name": "sample1 ",
+    "area": "area",
+    "state": "New"
+  }
+]
