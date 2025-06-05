@@ -396,6 +396,88 @@ app.post("/api/feedback", async (req, res) => {
     }
 });
 
+// ---- Create Tables ---
+
+api.get("/api/create_table_users", async (req, res) => {
+    try {
+        await db.query("DROP TABLE IF EXISTS users");
+        await db.query(`
+            CREATE TABLE IF NOT EXISTS users (
+                id SERIAL PRIMARY KEY,
+                username TEXT UNIQUE NOT NULL,
+                email TEXT UNIQUE NOT NULL,
+                password TEXT NOT NULL,
+                name TEXT NOT NULL
+            )
+        `);
+        res.json({ message: "Users table created." });
+    } catch (err) {
+        console.error("Error creating users table:", err);
+        res.status(500).json({ message: "Error creating users table." });
+    }
+});
+
+api.get("/api/create_table_ideas", async (req, res) => {
+    try {
+        await db.query("DROP TABLE IF EXISTS ideas");
+        await db.query(`
+            CREATE TABLE IF NOT EXISTS ideas (
+                id SERIAL PRIMARY KEY,
+                title TEXT NOT NULL,
+                description TEXT,
+                short_description TEXT,
+                area TEXT,
+                status TEXT DEFAULT 'New',
+                user_id INTEGER NOT NULL REFERENCES users(id),
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        `);
+        res.json({ message: "Users table created." });
+    } catch (err) {
+        console.error("Error creating users table:", err);
+        res.status(500).json({ message: "Error creating users table." });
+    }
+});
+
+api.get("/api/create_table_comments", async (req, res) => {
+    try {
+        await db.query("DROP TABLE IF EXISTS comments");
+        await db.query(`
+            CREATE TABLE IF NOT EXISTS comments (
+                id SERIAL PRIMARY KEY,
+                idea_id INTEGER NOT NULL REFERENCES ideas(id),
+                user_id INTEGER NOT NULL REFERENCES users(id),
+                username TEXT NOT NULL,
+                comment TEXT NOT NULL,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                parent_id INTEGER REFERENCES comments(id)
+            )
+        `);
+        res.json({ message: "Comments table created." });
+    } catch (err) {
+        console.error("Error creating comments table:", err);
+        res.status(500).json({ message: "Error creating comments table." });
+    }
+});
+
+api.get("/api/create_table_feedback", async (req, res) => {
+    try {
+        await db.query("DROP TABLE IF EXISTS feedback");
+        await db.query(`
+            CREATE TABLE IF NOT EXISTS feedback (
+                id SERIAL PRIMARY KEY,
+                email TEXT,
+                feedback TEXT NOT NULL,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        `);
+        res.json({ message: "Feedback table created." });
+    } catch (err) {
+        console.error("Error creating feedback table:", err);
+        res.status(500).json({ message: "Error creating feedback table." });
+    }
+});
+
 // ——— Start server —
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
