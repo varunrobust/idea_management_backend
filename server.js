@@ -398,7 +398,7 @@ app.post("/api/feedback", async (req, res) => {
 
 // ---- Create Tables ---
 
-api.get("/api/create_table_users", async (req, res) => {
+app.get("/api/create_table_users", async (req, res) => {
     try {
         await db.query("DROP TABLE IF EXISTS users");
         await db.query(`
@@ -417,7 +417,7 @@ api.get("/api/create_table_users", async (req, res) => {
     }
 });
 
-api.get("/api/create_table_ideas", async (req, res) => {
+app.get("/api/create_table_ideas", async (req, res) => {
     try {
         await db.query("DROP TABLE IF EXISTS ideas");
         await db.query(`
@@ -439,7 +439,7 @@ api.get("/api/create_table_ideas", async (req, res) => {
     }
 });
 
-api.get("/api/create_table_comments", async (req, res) => {
+app.get("/api/create_table_comments", async (req, res) => {
     try {
         await db.query("DROP TABLE IF EXISTS comments");
         await db.query(`
@@ -460,7 +460,7 @@ api.get("/api/create_table_comments", async (req, res) => {
     }
 });
 
-api.get("/api/create_table_feedback", async (req, res) => {
+app.get("/api/create_table_feedback", async (req, res) => {
     try {
         await db.query("DROP TABLE IF EXISTS feedback");
         await db.query(`
