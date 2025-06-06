@@ -4,6 +4,8 @@ This project is a backend API for managing ideas.
 It allows users to **register**, **login**, and then **create**, **view**, **update**, and **delete** their ideas.
 Users can also **add** and **view comments** on ideas and provide general feedback.
 
+For frontend implementation, you can refer here: [Idea Management Frontend](https://github.com/varunrobust/idea_management_frontend)
+
 ---
 
 ## Visual Overview
